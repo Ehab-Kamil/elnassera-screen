@@ -26,7 +26,11 @@ public class SDKConfiguration {
 
 	@Bean
 	public ViplexCore getViplexCore() {
-		return (ViplexCore) Native.loadLibrary("D:\\Novastar\\sdk\\bin\\viplexcore", ViplexCore.class);
+//	    Ehab
+//        return (ViplexCore) Native.loadLibrary("D:\\Novastar\\sdk\\bin\\viplexcore", ViplexCore.class);
+
+//      Georgy
+		return (ViplexCore) Native.loadLibrary("E:\\elnassera\\bin\\viplexcore", ViplexCore.class);
 	}
 
 }
