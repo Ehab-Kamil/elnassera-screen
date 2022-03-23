@@ -80,7 +80,7 @@ public class Test {
 				+ "\"border\":{\"borderThickness\":\"2px,3px,5%,6\",\"style\":0,\"backgroundColor\":\"#ff000000\",\"name\":\"border\","
 				+ "\"cornerRadius\":\"2%\",\"effects\":{\"headTailSpacing\":\"\",\"isHeadTail\":false,\"speedByPixelEnable\":true,"
 				+ "\"speed\":0,\"animation\":\"CLOCK_WISE\"}},\"inAnimation\":{\"type\":0,\"duration\":1000},\"duration\":3605000,"
-				+ "\"name\":\"test.png\",\"originalDataSource\":\"./test.png\",\"functionStorage\":\"\","
+				+ "\"name\":\"test.png\",\"originalDataSource\":\"test.png\",\"functionStorage\":\"\","
 				+ "\"isSupportSpecialEffects\":false}]},\"enable\":true,\"id\":1,\"itemsSource\":\"\",\"layout\":{\"height\":\"1.0\","
 				+ "\"width\":\"1.0\",\"x\":\"0.0\",\"y\":\"0.0\"},\"name\":\"widgetContainers1\",\"pickCount\":0,\"pickPolicy\":\"ORDER\","
 				+ "\"zOrder\":0}]}}";
@@ -88,7 +88,7 @@ public class Test {
 				.format("{\"programID\":1,\"outPutPath\":\"%s/\",\"mediasPath\":[{\"oldPath\":\"test\",\"newPath\":\"test\"}]}", rootDir);
 		String trasfromProgram = String
 				.format("{\"sn\": \"%s\",\"iconPath\": \"\",\"iconName\": \"\",\"sendProgramFilePaths\": {\"programPath\": "
-								+ "\"%s/program1\",\"mediasPath\": {\"./test.png\": \"test.png\"}},\"programName\": \"program1\","
+								+ "\"%s/program1\",\"mediasPath\": {\"test.png\": \"test.png\"}},\"programName\": \"program1\","
 								+ "\"deviceIdentifier\": \"Demo\",\"startPlayAfterTransferred\": true,\"insertPlay\": true}",
 						g_sn, rootDir);
 
@@ -154,7 +154,7 @@ public class Test {
 		instance.nvCreateProgramAsync(createProgram, callBack);
 		waitAPIReturn();
 
-		String requestDatapath = "{\"filePath\":\"./test.png\"}";
+		String requestDatapath = "{\"filePath\":\"test.png\"}";
 		System.out.println("ViplexCore Demo nvGetFileMD5Async(获取MD5) begin... ");
 		instance.nvGetFileMD5Async(requestDatapath, callBack);
 		waitAPIReturn();
