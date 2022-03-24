@@ -22,8 +22,8 @@ public class ScreenService {
 	@Autowired
 	private ProptertiesLoader credentialLoader;
 
-	Boolean g_bAPIReturn;
-	String callBackData;
+	Boolean g_bAPIReturn = false;
+	String callBackData = "	";
 
 	public String invokeMethod(Request request) {
 		g_bAPIReturn = false;
@@ -78,6 +78,7 @@ public class ScreenService {
 				String strData = "\nViplexCore Demo data:" + data;
 				System.out.println(strCode);
 				System.out.println(strData);
+				g_bAPIReturn = true;
 			}
 		});
 		waitAPIReturn();
