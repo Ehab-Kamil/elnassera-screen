@@ -44,7 +44,11 @@ public class Test {
 
 	public static void testApi() throws InterruptedException {
 		System.setProperty("jna.encoding", "UTF-8");
+		//	    Ehab
 		ViplexCore instance = (ViplexCore) Native.loadLibrary("D:\\Novastar\\sdk\\bin\\viplexcore", ViplexCore.class);
+
+		//      Georgy
+		//		ViplexCore instance = (ViplexCore) Native.loadLibrary("E:\\elnassera\\bin\\viplexcore", ViplexCore.class);
 		//当需要集成到项目中时，请修改上面加载库的位置为你下载的sdk库的绝对路径，windows下如：
 		//ViplexCore instance = (ViplexCore) Native.loadLibrary("D:\\ViplexCore3.3.0.01_x64\\bin\\viplexcore.dll",ViplexCore.class);
 
@@ -80,7 +84,7 @@ public class Test {
 				+ "\"border\":{\"borderThickness\":\"2px,3px,5%,6\",\"style\":0,\"backgroundColor\":\"#ff000000\",\"name\":\"border\","
 				+ "\"cornerRadius\":\"2%\",\"effects\":{\"headTailSpacing\":\"\",\"isHeadTail\":false,\"speedByPixelEnable\":true,"
 				+ "\"speed\":0,\"animation\":\"CLOCK_WISE\"}},\"inAnimation\":{\"type\":0,\"duration\":1000},\"duration\":3605000,"
-				+ "\"name\":\"test.png\",\"originalDataSource\":\"test.png\",\"functionStorage\":\"\","
+				+ "\"name\":\"test.png\",\"originalDataSource\":\"./test.png\",\"functionStorage\":\"\","
 				+ "\"isSupportSpecialEffects\":false}]},\"enable\":true,\"id\":1,\"itemsSource\":\"\",\"layout\":{\"height\":\"1.0\","
 				+ "\"width\":\"1.0\",\"x\":\"0.0\",\"y\":\"0.0\"},\"name\":\"widgetContainers1\",\"pickCount\":0,\"pickPolicy\":\"ORDER\","
 				+ "\"zOrder\":0}]}}";
@@ -88,9 +92,8 @@ public class Test {
 				.format("{\"programID\":1,\"outPutPath\":\"%s/\",\"mediasPath\":[{\"oldPath\":\"test\",\"newPath\":\"test\"}]}", rootDir);
 		String trasfromProgram = String
 				.format("{\"sn\": \"%s\",\"iconPath\": \"\",\"iconName\": \"\",\"sendProgramFilePaths\": {\"programPath\": "
-								+ "\"%s/program1\",\"mediasPath\": {\"test.png\": \"test.png\"}},\"programName\": \"program1\","
-								+ "\"deviceIdentifier\": \"Demo\",\"startPlayAfterTransferred\": true,\"insertPlay\": true}",
-						g_sn, rootDir);
+						+ "\"%s/program1\",\"mediasPath\": {\"./test.png\": \"test.png\"}},\"programName\": \"program1\","
+						+ "\"deviceIdentifier\": \"Demo\",\"startPlayAfterTransferred\": true,\"insertPlay\": true}", g_sn, rootDir);
 
 		Boolean bTestVideo = false;
 		if (bTestVideo) {
@@ -102,9 +105,8 @@ public class Test {
 
 			trasfromProgram = String
 					.format("{\"sn\":\"%s\",\"iconPath\": \"\",\"iconName\": \"\",\"sendProgramFilePaths\": {\"programPath\": "
-									+ "\"%s/program1\",\"mediasPath\": {\"./test.avi\": \"test.avi\"}},\"programName\": \"program1\","
-									+ "\"deviceIdentifier\": \"Demo\",\"startPlayAfterTransferred\": true,\"insertPlay\": true}",
-							g_sn, rootDir);
+							+ "\"%s/program1\",\"mediasPath\": {\"./test.avi\": \"test.avi\"}},\"programName\": \"program1\","
+							+ "\"deviceIdentifier\": \"Demo\",\"startPlayAfterTransferred\": true,\"insertPlay\": true}", g_sn, rootDir);
 		}
 
 		Boolean testText = false;
@@ -122,9 +124,8 @@ public class Test {
 					+ "\"name\":\"widgetContainers1\"}]}}";
 			trasfromProgram = String
 					.format("{\"sn\": \"%s\",\"iconPath\": \"\",\"iconName\": \"\",\"sendProgramFilePaths\": {\"programPath\": "
-									+ "\"%s/program1\",\"mediasPath\": {}},\"programName\": \"program1\",\"deviceIdentifier\": \"Demo\","
-									+ "\"startPlayAfterTransferred\": true,\"insertPlay\": true}",
-							g_sn, rootDir);
+							+ "\"%s/program1\",\"mediasPath\": {}},\"programName\": \"program1\",\"deviceIdentifier\": \"Demo\","
+							+ "\"startPlayAfterTransferred\": true,\"insertPlay\": true}", g_sn, rootDir);
 		}
 
 		String companyInfo = "{\"company\":\"NovaStar\",\"phone\":\"029-68216000\",\"email\":\"hr@novastar.tech\"}";
@@ -154,7 +155,7 @@ public class Test {
 		instance.nvCreateProgramAsync(createProgram, callBack);
 		waitAPIReturn();
 
-		String requestDatapath = "{\"filePath\":\"test.png\"}";
+		String requestDatapath = "{\"filePath\":\"./test.png\"}";
 		System.out.println("ViplexCore Demo nvGetFileMD5Async(获取MD5) begin... ");
 		instance.nvGetFileMD5Async(requestDatapath, callBack);
 		waitAPIReturn();
