@@ -1,7 +1,8 @@
 package com.elnassera.sdk.screen.service;
 
 import com.elnassera.sdk.screen.configuration.ViplexCore;
-import net.minidev.json.JSONObject;
+import com.elnassera.sdk.screen.model.Request;
+import com.elnassera.sdk.screen.model.ScreenProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,60 +14,80 @@ import java.util.Map;
 @Service
 public class ScreenService {
 
-    @Autowired
-    private ReflectionUtil reflectionUtil;
-    @Autowired
-    private ViplexCore viplexCore;
+	@Autowired
+	private ReflectionUtil reflectionUtil;
+	@Autowired
+	private ViplexCore viplexCore;
 
-    Boolean g_bAPIReturn;
-    String callBackData;
+	@Autowired
+	private ProptertiesLoader credentialLoader;
 
-    public String invokeMethod(JSONObject request) {
-        g_bAPIReturn = false;
-        callBackData = "";
-        String userName = request.get("username").toString();
-        String password = request.get("password").toString();
-        String methodName = request.get("function").toString();
-        Map data = (HashMap) request.get("data");
-        String sn = data.get("sn").toString();
+	Boolean g_bAPIReturn;
+	String callBackData;
 
-        ViplexCore.CallBack callBack = new ViplexCore.CallBack() {
+	public String invokeMethod(Request request) {
+		g_bAPIReturn = false;
+		callBackData = "";
 
-            @Override
-            public void dataCallBack(int code, String data) {
-                // TODO Auto-generated method stub
-                String strCode = "\nViplexCore Demo code:" + code;
-                String strData = "\nViplexCore Demo data:" + data;
-                System.out.println(strCode);
-                System.out.println(strData);
-                g_bAPIReturn = true;
-                callBackData = data;
-            }
-        };
+		ViplexCore.CallBack callBack = new ViplexCore.CallBack() {
 
-        Object[] params = new Object[]{request.get("data").toString(), (ViplexCore.CallBack) callBack};
-        try {
-            reflectionUtil.invokeMethodByReflection(viplexCore, request.get("function").toString(), params);
-            waitAPIReturn();
+			@Override
+			public void dataCallBack(int code, String data) {
+				// TODO Auto-generated method stub
+				String strCode = "\nViplexCore Demo code:" + code;
+				String strData = "\nViplexCore Demo data:" + data;
+				System.out.println(strCode);
+				System.out.println(strData);
+				g_bAPIReturn = true;
+				callBackData = data;
+			}
+		};
 
-        } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-            e.printStackTrace();
-            g_bAPIReturn = true;
-            callBackData = String.format("Error While Calling Function (%s) due to: %s", methodName, e.getMessage());
+		Object[] params = new Object[] { request.getData().toString(), (ViplexCore.CallBack) callBack };
+		try {
+			reflectionUtil.invokeMethodByReflection(viplexCore, request.getFunction(), params);
+			waitAPIReturn();
 
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            g_bAPIReturn = true;
-            callBackData = String.format("Error While Calling Function (%s) due to: %s", methodName, e.getMessage());
-        }
+		} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+			e.printStackTrace();
+			g_bAPIReturn = true;
+			callBackData = String.format("Error While Calling Function (%s) due to: %s", request.getFunction(), e.getMessage());
 
-        return callBackData;
-    }
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+			g_bAPIReturn = true;
+			callBackData = String.format("Error While Calling Function (%s) due to: %s", request.getFunction(), e.getMessage());
+		}
 
-    private void waitAPIReturn() throws InterruptedException {
-        while(!g_bAPIReturn) {
-            Thread.sleep(1000);
-        }
-        g_bAPIReturn = false;
-    }
+		return callBackData;
+	}
+
+	public void login(Request request) throws InterruptedException {
+
+		Map data = (HashMap) request.getData();
+		String sn = data.get("sn").toString();
+		ScreenProperties props = credentialLoader.loadPropsForSN(sn);
+		String loginParam = String.format("{\"sn\":\"%s\",\"username\":\"%s\",\"rememberPwd\":1,\"password\":\"%s\",\"loginType\":0}", sn,
+				props.getUsername(), props.getPassword());
+		viplexCore.nvLoginAsync(loginParam, new ViplexCore.CallBack() {
+
+			@Override
+			public void dataCallBack(int code, String data) {
+				// TODO Auto-generated method stub
+				String strCode = "\nViplexCore Demo code:" + code;
+				String strData = "\nViplexCore Demo data:" + data;
+				System.out.println(strCode);
+				System.out.println(strData);
+			}
+		});
+		waitAPIReturn();
+
+	}
+
+	private void waitAPIReturn() throws InterruptedException {
+		while(!g_bAPIReturn) {
+			Thread.sleep(1000);
+		}
+		g_bAPIReturn = false;
+	}
 }

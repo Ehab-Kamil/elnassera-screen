@@ -1,16 +1,12 @@
 package com.elnassera.sdk.screen.controller;
 
 import com.elnassera.sdk.screen.configuration.ViplexCore;
-import com.elnassera.sdk.screen.model.Test;
-import com.elnassera.sdk.screen.service.Details;
-import com.elnassera.sdk.screen.service.ReflectionUtil;
+import com.elnassera.sdk.screen.model.Request;
+import com.elnassera.sdk.screen.service.ProptertiesLoader;
 import com.elnassera.sdk.screen.service.ScreenService;
-import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
-import java.lang.reflect.InvocationTargetException;
 
 import org.springframework.web.context.annotation.RequestScope;
 
@@ -38,7 +34,7 @@ import org.springframework.web.context.annotation.RequestScope;
 public class ScreenController {
 
 	@Autowired
-	Details g;
+	ProptertiesLoader g;
 
 	@Autowired
 	private ViplexCore viplexCore;
@@ -69,18 +65,9 @@ public class ScreenController {
 		return "Done";
 	}
 
-	@GetMapping(path = "/testGetDetails")
-	public void details(@RequestHeader("SN") String sn) {
-		//		GetDetails g=new GetDetails();
-		g.detailsForSN(sn);
-		System.out.println("IP is : " + g.getIP());
-		System.out.println("name is : " + g.getUserName());
-		System.out.println("password is : " + g.getPassword());
-	}
-
 	@PostMapping(value = "/request", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public String handleRequest(@RequestBody JSONObject request) {
-
+	public String handleRequest(@RequestBody Request request) throws InterruptedException {
+		screenService.login(request);
 		return screenService.invokeMethod(request);
 	}
 }

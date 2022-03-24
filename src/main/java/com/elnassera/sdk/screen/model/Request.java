@@ -30,6 +30,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class Request implements Serializable {
 
+	private String function;
 	private JSONObject data;
 
 }
