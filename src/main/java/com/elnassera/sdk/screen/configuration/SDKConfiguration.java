@@ -30,7 +30,7 @@ public class SDKConfiguration {
 //        return (ViplexCore) Native.loadLibrary("D:\\Novastar\\sdk\\bin\\viplexcore", ViplexCore.class);
 
 //      Georgy
-		return (ViplexCore) Native.loadLibrary("E:\\elnassera\\bin\\viplexcore", ViplexCore.class);
+		return (ViplexCore) Native.loadLibrary("F:\\SDK Java Project\\sdk\\bin\\viplexcore", ViplexCore.class);
 	}
 
 }

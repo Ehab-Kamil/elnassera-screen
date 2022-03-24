@@ -2,6 +2,7 @@ package com.elnassera.sdk.screen.controller;
 
 import com.elnassera.sdk.screen.configuration.ViplexCore;
 import com.elnassera.sdk.screen.model.Test;
+import com.elnassera.sdk.screen.service.Details;
 import com.elnassera.sdk.screen.service.ReflectionUtil;
 import com.elnassera.sdk.screen.service.ScreenService;
 import net.minidev.json.JSONObject;
@@ -31,7 +32,10 @@ import java.lang.reflect.InvocationTargetException;
 @RestController
 @RequestMapping(value = "/screen")
 @CrossOrigin
+
 public class ScreenController {
+	@Autowired
+	Details g;
 
     @Autowired
     private ViplexCore viplexCore;
@@ -62,6 +66,15 @@ public class ScreenController {
 		viplexCore.nvSetScreenBrightnessAsync("{\"sn\":\"MZSA71304W0040003623\", \"screenBrightnessInfo\":{\"ratio\":70.0}", callBack);
 		return "Done";
 	}
+	@GetMapping(path = "/testGetDetails")
+	public void details(@RequestHeader("SN") String sn) {
+//		GetDetails g=new GetDetails();
+		g.detailsForSN(sn);
+		System.out.println("IP is : "+g.getIP());
+		System.out.println("name is : "+g.getUserName());
+		System.out.println("password is : "+g.getPassword());
+	}
+
 
 	@PostMapping(value = "/request", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public String handleRequest(@RequestBody JSONObject request) {
