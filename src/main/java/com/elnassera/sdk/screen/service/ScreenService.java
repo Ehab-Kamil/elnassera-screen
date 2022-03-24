@@ -23,7 +23,7 @@ public class ScreenService {
     public String invokeMethod(JSONObject request) {
         g_bAPIReturn = false;
         callBackData = "";
-        String userName = request.get("userName").toString();
+        String userName = request.get("username").toString();
         String password = request.get("password").toString();
         String methodName = request.get("function").toString();
         Map data = (HashMap) request.get("data");

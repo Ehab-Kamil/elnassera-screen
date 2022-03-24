@@ -33,18 +33,17 @@ import java.lang.reflect.InvocationTargetException;
 @CrossOrigin
 public class ScreenController {
 
-    @Autowired
-    private ViplexCore viplexCore;
-    @Autowired
+	@Autowired
+	private ViplexCore viplexCore;
+	@Autowired
 	private ScreenService screenService;
 
-    Boolean g_bAPIReturn = false;
-    String callBackData = "";
+	Boolean g_bAPIReturn = false;
+	String callBackData = "";
 
 	@GetMapping(path = "/test")
 	public String getTableStructure() throws InterruptedException {
 
-//		Test.testApi();
 		ViplexCore.CallBack callBack = new ViplexCore.CallBack() {
 
 			@Override
@@ -66,6 +65,6 @@ public class ScreenController {
 	@PostMapping(value = "/request", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public String handleRequest(@RequestBody JSONObject request) {
 
-	    return screenService.invokeMethod(request);
-    }
+		return screenService.invokeMethod(request);
+	}
 }

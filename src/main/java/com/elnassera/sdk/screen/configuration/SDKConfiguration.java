@@ -1,6 +1,7 @@
 package com.elnassera.sdk.screen.configuration;
 
 import com.sun.jna.Native;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -24,13 +25,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SDKConfiguration {
 
+	@Value("${sdkURL}")
+	private String sdkURL;
+
 	@Bean
 	public ViplexCore getViplexCore() {
-//	    Ehab
-//        return (ViplexCore) Native.loadLibrary("D:\\Novastar\\sdk\\bin\\viplexcore", ViplexCore.class);
-
-//      Georgy
-		return (ViplexCore) Native.loadLibrary("E:\\elnassera\\bin\\viplexcore", ViplexCore.class);
+		return (ViplexCore) Native.loadLibrary(sdkURL, ViplexCore.class);
 	}
 
 }

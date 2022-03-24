@@ -44,11 +44,11 @@ public class Test {
 
 	public static void testApi() throws InterruptedException {
 		System.setProperty("jna.encoding", "UTF-8");
-//	    Ehab
-//        return (ViplexCore) Native.loadLibrary("D:\\Novastar\\sdk\\bin\\viplexcore", ViplexCore.class);
+		//	    Ehab
+		ViplexCore instance = (ViplexCore) Native.loadLibrary("D:\\Novastar\\sdk\\bin\\viplexcore", ViplexCore.class);
 
-//      Georgy
-		ViplexCore instance = (ViplexCore) Native.loadLibrary("E:\\elnassera\\bin\\viplexcore", ViplexCore.class);
+		//      Georgy
+		//		ViplexCore instance = (ViplexCore) Native.loadLibrary("E:\\elnassera\\bin\\viplexcore", ViplexCore.class);
 		//当需要集成到项目中时，请修改上面加载库的位置为你下载的sdk库的绝对路径，windows下如：
 		//ViplexCore instance = (ViplexCore) Native.loadLibrary("D:\\ViplexCore3.3.0.01_x64\\bin\\viplexcore.dll",ViplexCore.class);
 
@@ -92,9 +92,8 @@ public class Test {
 				.format("{\"programID\":1,\"outPutPath\":\"%s/\",\"mediasPath\":[{\"oldPath\":\"test\",\"newPath\":\"test\"}]}", rootDir);
 		String trasfromProgram = String
 				.format("{\"sn\": \"%s\",\"iconPath\": \"\",\"iconName\": \"\",\"sendProgramFilePaths\": {\"programPath\": "
-								+ "\"%s/program1\",\"mediasPath\": {\"./test.png\": \"test.png\"}},\"programName\": \"program1\","
-								+ "\"deviceIdentifier\": \"Demo\",\"startPlayAfterTransferred\": true,\"insertPlay\": true}",
-						g_sn, rootDir);
+						+ "\"%s/program1\",\"mediasPath\": {\"./test.png\": \"test.png\"}},\"programName\": \"program1\","
+						+ "\"deviceIdentifier\": \"Demo\",\"startPlayAfterTransferred\": true,\"insertPlay\": true}", g_sn, rootDir);
 
 		Boolean bTestVideo = false;
 		if (bTestVideo) {
@@ -106,9 +105,8 @@ public class Test {
 
 			trasfromProgram = String
 					.format("{\"sn\":\"%s\",\"iconPath\": \"\",\"iconName\": \"\",\"sendProgramFilePaths\": {\"programPath\": "
-									+ "\"%s/program1\",\"mediasPath\": {\"./test.avi\": \"test.avi\"}},\"programName\": \"program1\","
-									+ "\"deviceIdentifier\": \"Demo\",\"startPlayAfterTransferred\": true,\"insertPlay\": true}",
-							g_sn, rootDir);
+							+ "\"%s/program1\",\"mediasPath\": {\"./test.avi\": \"test.avi\"}},\"programName\": \"program1\","
+							+ "\"deviceIdentifier\": \"Demo\",\"startPlayAfterTransferred\": true,\"insertPlay\": true}", g_sn, rootDir);
 		}
 
 		Boolean testText = false;
@@ -126,9 +124,8 @@ public class Test {
 					+ "\"name\":\"widgetContainers1\"}]}}";
 			trasfromProgram = String
 					.format("{\"sn\": \"%s\",\"iconPath\": \"\",\"iconName\": \"\",\"sendProgramFilePaths\": {\"programPath\": "
-									+ "\"%s/program1\",\"mediasPath\": {}},\"programName\": \"program1\",\"deviceIdentifier\": \"Demo\","
-									+ "\"startPlayAfterTransferred\": true,\"insertPlay\": true}",
-							g_sn, rootDir);
+							+ "\"%s/program1\",\"mediasPath\": {}},\"programName\": \"program1\",\"deviceIdentifier\": \"Demo\","
+							+ "\"startPlayAfterTransferred\": true,\"insertPlay\": true}", g_sn, rootDir);
 		}
 
 		String companyInfo = "{\"company\":\"NovaStar\",\"phone\":\"029-68216000\",\"email\":\"hr@novastar.tech\"}";
