@@ -2,6 +2,7 @@ package com.elnassera.sdk.screen.service;
 
 import com.elnassera.sdk.screen.model.ScreenProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Component;
  * @date 24/03/2022
  */
 @Component
+@PropertySource("classpath:SerialNumbers.properties")
 public class ProptertiesLoader {
 
 	@Autowired
