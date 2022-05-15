@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
 public class ReflectionUtil {
 
     public void invokeMethodByReflection(Object srcObject, String methodName, Object[] params) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        Class[] classes = new Class[] {String.class, ViplexCore.CallBack.class};
+        Class[] classes = new Class[] { ViplexCore.CallBack.class};
 //        for (int i = 0; i < params.length; i++) classes[i] = params[i].getClass();
         invokeMethodByReflection(srcObject, srcObject.getClass(), methodName, params, classes);
     }

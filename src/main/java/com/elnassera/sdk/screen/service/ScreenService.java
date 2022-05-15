@@ -43,7 +43,14 @@ public class ScreenService {
 			}
 		};
 
-		Object[] params = new Object[] { request.getData().toString(), (ViplexCore.CallBack) callBack };
+		Object[] params;
+
+		if (request.getData() != null) {
+			params = new Object[] { request.getData().toString(), (ViplexCore.CallBack) callBack };
+		} else {
+			params = new Object[] { (ViplexCore.CallBack) callBack };
+		}
+		
 		try {
 			reflectionUtil.invokeMethodByReflection(viplexCore, request.getFunction(), params);
 			waitAPIReturn();
