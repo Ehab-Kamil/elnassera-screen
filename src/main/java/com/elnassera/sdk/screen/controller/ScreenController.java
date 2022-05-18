@@ -45,7 +45,7 @@ public class ScreenController {
 	String callBackData = "";
 
 	@GetMapping(path = "/test")
-	public String getTableStructure() throws InterruptedException {
+	public String testMethod() throws InterruptedException {
 
 		ViplexCore.CallBack callBack = new ViplexCore.CallBack() {
 
@@ -67,7 +67,7 @@ public class ScreenController {
 
 	@PostMapping(value = "/request", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public String handleRequest(@RequestBody Request request) throws InterruptedException {
-//		screenService.login(request);
+		screenService.login(request);
 		return screenService.invokeMethod(request);
 	}
 }

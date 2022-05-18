@@ -23,7 +23,7 @@ import org.springframework.stereotype.Component;
  * @date 24/03/2022
  */
 @Component
-@PropertySource("classpath:SerialNumbers.properties")
+//@PropertySource("classpath:SerialNumberss.properties")
 public class ProptertiesLoader {
 
 	@Autowired

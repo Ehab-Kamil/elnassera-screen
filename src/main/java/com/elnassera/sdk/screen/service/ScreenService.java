@@ -50,7 +50,7 @@ public class ScreenService {
 		} else {
 			params = new Object[] { (ViplexCore.CallBack) callBack };
 		}
-		
+
 		try {
 			reflectionUtil.invokeMethodByReflection(viplexCore, request.getFunction(), params);
 			waitAPIReturn();
@@ -74,8 +74,9 @@ public class ScreenService {
 		Map data = (HashMap) request.getData();
 		String sn = data.get("sn").toString();
 		ScreenProperties props = credentialLoader.loadPropsForSN(sn);
-		String loginParam = String.format("{\"sn\":\"%s\",\"username\":\"%s\",\"rememberPwd\":1,\"password\":\"%s\",\"loginType\":0}", sn,
-				props.getUsername(), props.getPassword());
+		String loginParam = String
+				.format("{\"sn\":\"%s\",\"ip\":\"%s\",\"username\":\"%s\",\"rememberPwd\":1,\"password\":\"%s\"," + "\"loginType\":0}", sn,
+						props.getIp(), props.getUsername(), props.getPassword());
 		viplexCore.nvLoginAsync(loginParam, new ViplexCore.CallBack() {
 
 			@Override
