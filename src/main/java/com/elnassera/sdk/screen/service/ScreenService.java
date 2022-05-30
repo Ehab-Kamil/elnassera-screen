@@ -7,7 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.InvocationTargetException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 //business logic
@@ -25,7 +30,32 @@ public class ScreenService {
 	Boolean g_bAPIReturn = false;
 	String callBackData = "	";
 
-	public String invokeMethod(Request request) {
+	public List searchIp(String searchTimeout) throws InterruptedException {
+		ArrayList bulkCallBackData = new ArrayList<String>();
+		g_bAPIReturn = false;
+		callBackData = "";
+
+		ViplexCore.CallBack callBack = new ViplexCore.CallBack() {
+
+			@Override
+			public void dataCallBack(int code, String data) {
+				// TODO Auto-generated method stub
+				String strCode = "\nViplexCore Demo code:" + code;
+				String strData = "\nViplexCore Demo data:" + data;
+				System.out.println(strCode);
+				System.out.println(strData);
+				g_bAPIReturn = true;
+				bulkCallBackData.add(data);
+			}
+		};
+
+		viplexCore.nvSearchTerminalAsync(callBack);
+
+		Thread.sleep(Long.parseLong(searchTimeout));
+		return bulkCallBackData;
+	}
+
+	public String invokeMethod(Request request) throws Exception {
 		g_bAPIReturn = false;
 		callBackData = "";
 
@@ -69,7 +99,14 @@ public class ScreenService {
 		return callBackData;
 	}
 
-	public void login(Request request) throws InterruptedException {
+	public void login(Request request) throws InterruptedException, Exception {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date1 = sdf.parse("2022-05-29");
+		Date now = new Date();
+
+		if (date1.before(now)) {
+			throw new Exception("Trial Version has been expired ");
+		}
 
 		Map data = (HashMap) request.getData();
 		String sn = data.get("sn").toString();

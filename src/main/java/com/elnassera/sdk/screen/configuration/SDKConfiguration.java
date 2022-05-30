@@ -30,15 +30,17 @@ public class SDKConfiguration {
 	private String sdkURL;
 
 	@Bean
-	@RequestScope
-	public ViplexCore getViplexCore() {
-		ViplexCore instance = (ViplexCore) Native.loadLibrary(sdkURL, ViplexCore.class);
+	public ViplexCore getViplexCore() throws InterruptedException {
+		System.setProperty("jna.encoding", "UTF-8");
+		ViplexCore instance = (ViplexCore) Native.load(sdkURL, ViplexCore.class);
 		instance.nvSetDevLang("Java");
 		String rootDir = System.getProperty("user.dir") + "/temp";
+		rootDir = rootDir.replaceAll( "\\\\","/");
 		String companyInfo = "{\"company\":\"NovaStar\",\"phone\":\"029-68216000\",\"email\":\"hr@novastar.tech\"}";
 
 		instance.nvInit(rootDir, companyInfo);
 
-		return instance;}
+		return instance;
+	}
 
 }
