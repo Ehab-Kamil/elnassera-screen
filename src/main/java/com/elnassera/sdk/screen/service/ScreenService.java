@@ -3,11 +3,11 @@ package com.elnassera.sdk.screen.service;
 import com.elnassera.sdk.screen.configuration.ViplexCore;
 import com.elnassera.sdk.screen.model.Request;
 import com.elnassera.sdk.screen.model.ScreenProperties;
+import org.json.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.InvocationTargetException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,7 +31,7 @@ public class ScreenService {
 	String callBackData = "	";
 
 	public List searchIp(String searchTimeout) throws InterruptedException {
-		ArrayList bulkCallBackData = new ArrayList<String>();
+		ArrayList bulkCallBackData = new ArrayList<>();
 		g_bAPIReturn = false;
 		callBackData = "";
 
@@ -45,7 +45,8 @@ public class ScreenService {
 				System.out.println(strCode);
 				System.out.println(strData);
 				g_bAPIReturn = true;
-				bulkCallBackData.add(data);
+				JSONObject obj = new JSONObject(data);
+				bulkCallBackData.add(obj.toMap());
 			}
 		};
 

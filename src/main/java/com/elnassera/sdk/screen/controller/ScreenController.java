@@ -56,7 +56,7 @@ public class ScreenController {
 
 	@GetMapping(path = "/test")
 	public String testMethod() throws InterruptedException {
-		Test.testApi("80");
+		Test.testApi();
 		//		ViplexCore.CallBack callBack = new ViplexCore.CallBack() {
 		//
 		//			@Override
@@ -77,7 +77,7 @@ public class ScreenController {
 	}
 
 	@GetMapping(path = "/searchIp")
-	public List<String> search() throws InterruptedException {
+	public List search() throws InterruptedException {
 		return screenService.searchIp(searchTimeout);
 	}
 
